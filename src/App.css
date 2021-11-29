@@ -3,4 +3,11 @@
     margin: 0;
     padding: 0;
   }
-  
+
+  .pagedashboard,
+  .pageworkplace,
+  .process {
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+}

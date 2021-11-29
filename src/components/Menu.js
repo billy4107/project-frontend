@@ -1,59 +1,49 @@
 import "./Menu.css";
-import React, { useState } from "react";
+import React, { useState } from 'react'
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { SidebarData } from "./SidebarData";
+import { IconContext } from 'react-icons';
 
 function Menu() {
+    const [sidebar, setSidebar] = useState(false);
 
-    const [toggle, setToggle] = useState("side-bar");
-
-    const buttonToggle = () => {
-        if (toggle === "side-bar") {
-            setToggle("side-bar-active")
-        } else {
-            setToggle("side-bar")
-        }
-
-    }
+    const showSidebar = () => setSidebar(!sidebar);
 
     return (
-        <div className="wrapper">
-
-            <div id={toggle}>
-
-                <div className="top-side">
-                    <p id="tab-menu">Tab menu</p>
+        <>
+            <IconContext.Provider value={{ color: '#fff' }}>
+                <div className='navbar'>
+                    <Link to='#' className='menu-bars'>
+                        <FaIcons.FaBars onClick={showSidebar} />
+                    </Link>
+                    <p className="text-name">GOLDEN FARM</p>
+                    <Link to='#' className='menu-bars'>
+                        <AiIcons.AiOutlineClose />
+                    </Link>
                 </div>
-
-                <div>
-                    <ul id="menu-list">
-                        <li><i class="fa fa-dashboard" />Dashboard</li>
-                        <li><i class="fa fa-calendar-check-o" />Todo List</li>
-                        <li><i class="fa fa-user-circle-o" />menu3</li>
-                        <li><i class="fa fa-user-circle-o" />menu4</li>
+                <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+                    <ul className='nav-menu-items' onClick={showSidebar}>
+                        <li className='navbar-toggle'>
+                            <Link to='#' className='menu-bars'>
+                                <AiIcons.AiOutlineClose />
+                            </Link>
+                        </li>
+                        {SidebarData.map((item, index) => {
+                            return (
+                                <li key={index} className={item.cName}>
+                                    <Link to={item.path}>
+                                        {item.icon}
+                                        <span>{item.title}</span>
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ul>
-                </div>
-
-                <div className="side-footer">
-                    <p><i className="fa fa-user-circle-o" />My Account</p>
-                </div>
-
-            </div>
-
-            <div id="card-header">
-
-                <div className="button-toggle">
-                    <button type="button" id="sidebarCollapse" className="btn btn-success" onClick={buttonToggle}>
-
-                        <span>Toggle Sidebar</span>
-                    </button>
-                </div>
-
-                <div className="icon-account">
-                    <i className="fa fa-user-circle-o" />
-                </div>
-
-            </div>
-
-        </div>
+                </nav>
+            </IconContext.Provider>
+        </>
     );
 }
 
