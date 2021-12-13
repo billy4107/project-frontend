@@ -1,0 +1,83 @@
+#card-workplace {
+  width: 100%;
+  margin: 1rem auto;
+  padding: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnTable {
+  color: white;
+  margin: 2px;
+  border-radius: 100%;
+}
+
+.nav {
+  margin: 1rem 0 1rem 0;
+}
+
+.button button {
+  margin: 5px 1rem 5px 0;
+}
+
+.name-page {
+  border-bottom: 1px solid rgb(202, 202, 202);
+  color: rgb(119, 119, 119);
+}
+
+.name-page > p {
+  font-size: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0 1rem 0 0;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;  
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+table tr {
+height: 50px;
+}
+
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(175, 175, 175);
+  color: black;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: black;
+  background-color: rgb(218, 218, 218);
+}
+
+.paginationActive a {
+  color: white;
+  background-color: rgb(218, 218, 218);
+}
+
+.thepagination {
+  display: flex;
+  justify-content: end;
+}
+/* 
+.paginationDisabled a {
+ color: wi;
+} */

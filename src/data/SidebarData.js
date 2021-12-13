@@ -18,7 +18,13 @@ export const SidebarData = [
   },
   {
     title: 'Process',
-    path: '/pageformaddwork',
+    path: '/pageprocess/dried',
+    icon: <IoIcons.IoIosPaper />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Warehouse',
+    path: '/pagewarehouse/warehouse',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   },

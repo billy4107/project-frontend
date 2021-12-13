@@ -1,0 +1,12 @@
+.headname {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sideBarHeight {
+  min-height: 1100px;
+  max-height: 5000px;
+
+}

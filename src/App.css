@@ -4,10 +4,14 @@
     padding: 0;
   }
 
-  .pagedashboard,
-  .pageworkplace,
-  .process {
-  height: 90vh;
+.contentDiv {
+  display: flex;
+}
+
+.contentMargin { 
+  height: 100%;
+  width: 100%;
   align-items: center;
   justify-content: center;
+  margin: 1rem;
 }

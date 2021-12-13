@@ -14,8 +14,12 @@
     "react-icons": "^4.3.1",
     "react-input-just-numbers": "^1.0.3",
     "react-input-number": "^5.0.19",
+    "react-paginate": "^8.1.0",
+    "react-pro-sidebar": "^0.7.1",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
+    "react-select": "^5.2.1",
+    "react-tabs": "^3.2.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

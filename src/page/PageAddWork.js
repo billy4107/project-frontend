@@ -1,5 +1,5 @@
 import React from "react";
-import FormAddWork from "../components/FormAddWork";
+import FormAddWork from "../components/workplace/FormAddWork";
 
 function PageFormAddWork() {
     return (
