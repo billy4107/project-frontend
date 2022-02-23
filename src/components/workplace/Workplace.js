@@ -1,58 +1,74 @@
-import { MockupData } from "../../data/MockupData";
-// import * as GrIcons from "react-icons/gr";
-import { HiSearch } from "react-icons/hi";
-import { MdDeleteForever } from "react-icons/md";
+import axios from 'axios';
 import "./Workplace.css";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPaginate from 'react-paginate';
 import ViewWorkplace from "./ViewWorkplace";
+import ItemWorkplace from "./ItemWorkplace";
+import SearchWorkplace from "./SearchWorkplace";
 
 function Workplace() {
-    // const [Mockup, setMockup] = useState(MockupData.slice(0, 200));
+
+    //Data
+    const [workplaceList, setWorkplaceList] = useState([]);
+
+    //pagination
     const [pageNumber, setPageNumber] = useState(0);
-    const [selectedTable, setSelectedTable] = useState(MockupData[2]);
+
+    //view
+    const [selectedTable, setSelectedTable] = useState(null);
+
+    //search
+    const [searchText, setSearchText] = useState('');
+
+    const onTableOpenClick = (theTable) => setSelectedTable(theTable);
+    const onTableCloseClick = () => setSelectedTable(null);
 
     let viewWorkplace = null;
     if (!!selectedTable) {
-        viewWorkplace = <ViewWorkplace />
+        viewWorkplace = <ViewWorkplace workdata={selectedTable} onBgClick={onTableCloseClick} />
     }
 
-    const mockupPerPage = 10;
-    const pagesVisited = pageNumber * mockupPerPage;
+    //pagination and datatable
+    const workPerPage = 10;
+    const pagesVisited = pageNumber * workPerPage;
 
-    const displayUsers = MockupData
-        .slice(pagesVisited, pagesVisited + mockupPerPage)
-        .map((mockups, index) => {
-            // console.log(index)
-            return (
-                <tr >
-                    <td><button type="button" className="btn btn-info btn-sm btnTable"> <HiSearch /> </button>
-                        <button type="button" className="btn btn-danger btn-sm btnTable"> <MdDeleteForever /> </button></td>
-                    <td>{mockups.workname}</td>
-                    <td>{mockups.timein}</td>
-                    <td>{mockups.timeout}</td>
-                    <td>{mockups.username}</td>
-                </tr>
-            );
+    useEffect(() => {
+        getWorkplace();
+    }, [])
+
+    const getWorkplace = async () => {
+        axios.get("http://localhost:3001/workplace").then((response) => {
+            setWorkplaceList(response.data);
         });
+    }
 
-    const pageCount = Math.ceil(MockupData.length / mockupPerPage);
+    const deleteWorkplace = async (wid) => {
+        const answer = window.confirm("are you sure?");
+        if (answer) {
+            await axios.delete(`http://localhost:3001/workplace/${wid}`);
+            getWorkplace();
+        }
+    }
+
+    const workElements = workplaceList.filter((workdata) => {
+        return workdata.worktype.includes(searchText)
+    })
+        .slice(pagesVisited, pagesVisited + workPerPage)
+        .map((workdata) => {
+            // console.log(workdata)
+            return <ItemWorkplace key={workdata.wid} workdata={workdata} onTableOpenClick={onTableOpenClick} deleteWorkplace={deleteWorkplace} />
+        });
+    const pageCount = Math.ceil(workplaceList.length / workPerPage);
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
 
     return (
-        <div className="card" id="card-workplace">
+        <div>
             <div className="name-page">
                 <p>Work Place</p>
-
-            </div>
-
-            <div className="input-group mb-2 mt-2 w-25">
-                <input type="text" className="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" />
-                <button type="button" className="btn btn-primary">Search</button>
             </div>
 
             <div className="button">
@@ -61,22 +77,27 @@ function Workplace() {
                 </Link>
             </div>
 
-            <div className="table-responsive">
-                <table className="table table-hover">
+            <SearchWorkplace value={searchText} onValueChange={setSearchText} />
+
+            <div className="table-responsive text-nowrap">
+                <table className="table table-sm table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Action</th>
-                            <th scope="col">Work name</th>
-                            <th scope="col">Time in</th>
-                            <th scope="col">Time out</th>
-                            <th scope="col">Username</th>
+                            <th className='col' scope="col">Action</th>
+                            <th className='col' scope="col">Work name</th>
+                            <th className='col' scope="col">Harvest</th>
+                            <th className='col' scope="col">Damaged</th>
+                            <th className='col' scope="col">Username</th>
+                            <th className='col' scope="col">Create time</th>
+                            <th className='col' scope="col">Update time</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {displayUsers}
+                        {workElements}
                     </tbody>
                 </table>
             </div>
+
             <div className="thepagination">
                 <ReactPaginate
                     previousLabel={"Previous"}
@@ -86,7 +107,6 @@ function Workplace() {
                     containerClassName={"paginationBttns"}
                     previousLinkClassName={"previousBttn"}
                     nextLinkClassName={"nextBttn"}
-                    //    disabledClassName={"paginationDisabled"}
                     activeClassName={"paginationActive"}
                 />
             </div>

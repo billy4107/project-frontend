@@ -1,67 +1,100 @@
 import "./FormAddWork.css"
-import * as AiIcons from "react-icons/ai";
+import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
 function FormAddWork() {
+    //add
+    const [worktype, setWorktype] = useState('');
+    const [harvest, setHarvest] = useState('');
+    const [damaged, setDamaged] = useState('');
+    const [username, setUsername] = useState('');
+    const [note, setNote] = useState('');
+    const [perid, setPerid] = useState('');
+    const [personnelList, setPersonnelList] = useState([]);
+
+    //add
+    const addWorkplace = async (event) => {
+        if ((worktype !== "")) {
+            event.preventDefault();
+            window.location.assign("/pageworkplace")
+            await axios.post("http://localhost:3001/workplace", {
+                worktype: worktype,
+                harvest: harvest,
+                damaged: damaged,
+                username: username,
+                note: note,
+                perid: perid
+            });
+        } else {
+            alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+        }
+    }
+
+    useEffect(() => {
+        getPersonnel();
+    }, [])
+
+    const getPersonnel = async () => {
+        axios.get("http://localhost:3001/personnel").then((response) => {
+            setPersonnelList(response.data);
+        });
+    }
+
+    const personnelElements = personnelList.map((persondata) => {
+        return <option key={persondata.perid} value={persondata.perid}>{persondata.name}</option>;
+    });
 
     return (
-        <div className="card" id="card-add">
+        <div>
             <div className="name-page">
-                <p><AiIcons.AiFillFileAdd /> New Work</p>
+                <p>New Work</p>
 
             </div>
 
-            <div className="nav nav-tabs">
-                <div className="nav-item">
-                    <h4 className="nav-link active" >Details</h4>
-                </div>
-            </div>
+            <form className="form-input row g-3" autoComplete="off" onSubmit={addWorkplace}>
 
-            <form className="form-input row g-3" autoComplete="off">
-
-                <div className="col-md-4">
-                    <label htmlFor="validationDefault02" className="form-label">Work type</label>
-                    <select className="col-md-4 form-select" required aria-label="select example">
+                <div className="col-md-6">
+                    <label htmlFor="validationDefault02" className="form-label"><b>Work type</b></label>
+                    <select className="col-md-4 form-select" required aria-label="select example" onChange={(event) => { setWorktype(event.target.value) }} >
                         <option value="">กรุณาเลือก*</option>
-                        <option value="1">เก็บผลผลิต</option>
-                        <option value="2">ดูแล/ให้ยา</option>
-                        <option value="3">ทำความสะอาด</option>
-                        <option value="4">ตรวจเช็ค</option>
+                        <option value="เก็บผลผลิต">เก็บผลผลิต</option>
+                        <option value="ดูแล/ให้ยา">ดูแล/ให้ยา</option>
+                        <option value="ทำความสะอาด">ทำความสะอาด</option>
+                        <option value="ตรวจเช็ค">ตรวจเช็ค</option>
                     </select>
                 </div>
 
-                <div className="col-md-4">
-                    <label htmlFor="harvest" className="form-label">Harvest</label>
-                    <input type="number" className="form-control" id="harvest" maxLength="10" required />
+                <div className="col-md-6">
+                    <label htmlFor="harvest" className="form-label"><b>Harvest</b></label>
+                    <input type="number" className="form-control" id="harvest" maxLength="10" onChange={(event) => { setHarvest(event.target.value) }} />
                 </div>
 
-                <div className="col-md-4">
-                    <label htmlFor="damaged" className="form-label">Damaged</label>
+                <div className="col-md-6">
+                    <label htmlFor="damaged" className="form-label"><b>Damaged</b></label>
                     <div className="input-group">
-                        <input type="number" className="form-control" id="damaged" maxLength="10" required />
+                        <input type="number" className="form-control" id="damaged" maxLength="10" onChange={(event) => { setDamaged(event.target.value) }} />
                     </div>
                 </div>
 
-                <div className="col-md-3">
-                    <label htmlFor="username" className="form-label">Username</label>
-                    <select className="form-select" id="username" required>
-                        <option value="1">นาย 1</option>
-                        <option value="2">นาย 2</option>
-                        <option value="3">นาย 3</option>
-                        <option value="4">นาย 4</option>
+                <div className="col-md-6">
+                    <label htmlFor="username" className="form-label"><b>Username</b></label>
+                    <select className="form-select" id="username" onChange={(event) => { setPerid(event.target.value) }} required>
+                        <option value="">กรุณาเลือก*</option>
+                        {personnelElements}
                     </select>
                 </div>
 
-                <div className="col-md-9">
-                    <label htmlFor="textarea" className="form-label">Note</label>
-                    <textarea className="form-control" aria-label="With textarea" />
+                <div className="col-md-12">
+                    <label htmlFor="textarea" className="form-label"><b>Note</b></label>
+                    <textarea className="form-control" aria-label="With textarea" onChange={(event) => { setNote(event.target.value) }} />
                 </div>
 
                 <div className="button-add col-12">
-                    <button type="button" className="btn btn-success">Submit</button> 
-                    <button type="button" className="btn btn-danger">Back</button>
-                </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
 
-         
+                    <Link to="/pageworkplace" type="button" className="btn btn-danger">Back</Link>
+                </div>
 
             </form>
         </div>

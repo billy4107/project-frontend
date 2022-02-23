@@ -1,0 +1,10 @@
+.active {
+    font-size: 1.5rem;
+    color: green;
+  }
+  
+  .disable {
+    font-size: 1.5rem;
+    color: red;
+  }
+  

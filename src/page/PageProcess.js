@@ -1,11 +1,9 @@
 import React from "react";
-import Dried from "../components/process/Dried";
+import Sorting from "../components/process/sorting/Sorting";
 
 function PageProcess() {
     return (
-      
-           <Dried />
-      
+      <Sorting />      
     );
 }
 

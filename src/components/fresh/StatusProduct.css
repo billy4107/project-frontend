@@ -1,0 +1,25 @@
+.statuscard {
+    margin: 1rem 0 1rem 0;
+    width: 25rem;
+}
+
+.imgstatus {
+    font-size: 4rem;
+}
+
+.card-body-status {
+    margin: 0 1rem 0 1rem;
+    color: white;
+}
+
+.primary {
+    background-color: #3b89ff;
+}
+
+.danger {
+    background-color: #db5c68;
+}
+
+.card-title {
+    margin: 0.5rem;
+}

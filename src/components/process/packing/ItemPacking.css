@@ -1,0 +1,7 @@
+.column {
+    float: left;
+    max-width: 21rem;
+    min-width: 21rem;
+    padding: 0 5px;
+    margin-bottom: 10px;
+  }

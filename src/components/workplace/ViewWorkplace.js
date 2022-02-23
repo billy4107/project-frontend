@@ -1,54 +1,57 @@
 import "./ViewWorkplace.css";
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import React, { useState } from "react";
+import React from "react";
 
 const ViewWorkplace = (props) => {
 
-    const [show, setShow] = useState(false);
+    const { workdata, onBgClick } = props;
 
-    const  { mockups } = props;
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-        
     return (
-        <>
-            <Modal show={show} onHide={handleClose} size="lg" centered>
-            <Modal.Header closeButton>
-                <Modal.Title>Modal add</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <form className="form-input row g-3" autoComplete="off" >
+        <div className="view-table">
+            <div className="view-table-bg" onClick={onBgClick} />
+            <div className="view-table-content">
+                <div className="view-header">
+                    <h3>View</h3>
+                </div>
+                <form className="view-from form-input row">
 
-                    <div className="col-md-12">
-                        <label className="form-label">Work name</label>
-                        <input type="number" className="form-control" value={mockups.workname}/>
+                    <div className="col columnview">
+                        <label className="form-label col-md-12">Work name</label>
+                        <input type="text" className="form-control" value={workdata.worktype} disabled />
                     </div>
 
-                    <div className="col-md-12">
-                        <label className="form-label">Time in</label>
-                        <input type="number" className="form-control" value={mockups.timein}/>
+                    <div className="col columnview">
+                        <label className="form-label col-md-12">Harvest</label>
+                        <input type="text" className="form-control" value={workdata.harvest} disabled />
                     </div>
 
-                    <div className="col-md-12">
-                        <label className="form-label">Time out</label>
-                        <input type="number" className="form-control" value={mockups.timeout}/>
+                    <div className="col columnview">
+                        <label className="form-label col-md-12">Damaged</label>
+                        <input type="text" className="form-control" value={workdata.damaged} disabled />
                     </div>
 
-                    <div className="col-md-12">
-                        <label className="form-label">Username</label>
-                        <input type="number" className="form-control" value={mockups.username}/>
+                    <div className="col columnview">
+                        <label className="form-label col-md-12">Username</label>
+                        <input type="text" className="form-control" value={workdata.username} disabled />
                     </div>
 
-                    <Button variant="danger" onClick={handleClose}>
-                        Close
-                    </Button>
+                    <div className="col columnview">
+                        <label className="form-label col-md-12">Note</label>
+                        <input type="text" className="form-control" value={workdata.note} disabled />
+                    </div>
+
+                    <div className="col columnview">
+                        <label className="form-label col-md-12">Create time</label>
+                        <input type="text" className="form-control" value={new Date(workdata.createdAt).toLocaleString("th-TH")} disabled />
+                    </div>
+
+                    <div className="col columnview">
+                        <label className="form-label col-md-12">Update time</label>
+                        <input type="text" className="form-control" value={new Date(workdata.updatedAt).toLocaleString("th-TH")} disabled />
+                    </div>
+
                 </form>
-            </Modal.Body>
-            <Modal.Footer>
-            </Modal.Footer>
-        </Modal>
-        </>
+            </div>
+        </div>
     );
 }
 
