@@ -14,12 +14,12 @@ const EditSorting = (props) => {
         }
     }, [proid])
 
-   const editProcessed = async (event) => {
+    const editProcessed = async (event) => {
         if ((sortingweight !== "")) {
             await axios.patch(`http://localhost:3001/processed/${proid}`, {
                 mushroomname: mushroomname,
                 sortingweight: sortingweight
-        });
+            });
         } else {
             alert("กรุณากรอกข้อมูลให้ครบถ้วน");
         }
@@ -33,7 +33,7 @@ const EditSorting = (props) => {
     };
     return (
         <div className="view-table">
-            <div className="view-table-bg"  />
+            <div className="view-table-bg" />
             <div className="view-table-content">
                 <div className="view-header">
                     <h3>Edit</h3>
@@ -42,14 +42,7 @@ const EditSorting = (props) => {
 
                     <div className="col-md-12">
                         <label className="form-label">Mushroom</label>
-                        <select className="col-md-4 form-select" name="mushroom" value={mushroomname}
-                            onChange={(event) => setMushroomname(event.target.value)}>
-                            <option value="">กรุณาเลือก*</option>
-                            <option value="เห็ด1">เห็ด1</option>
-                            <option value="เห็ด2">เห็ด2</option>
-                            <option value="เห็ด3">เห็ด3</option>
-                            <option value="เห็ด4">เห็ด4</option>
-                        </select>
+                        <input type="text" className="form-control" name="mushroom" value={mushroomname} onChange={(event) => { setMushroomname(event.target.value) }} required />
                     </div>
 
                     <div className="col-md-12">

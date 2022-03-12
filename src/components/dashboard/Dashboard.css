@@ -12,6 +12,24 @@
 .col1 {
     width: 72rem;
 }
+
+.no1 {
+     width: auto;
+}
+
+.no2 {
+    width: 500px;
+    /* min-width: 100%; */
+}
+
+.no3 {
+    width: auto;
+}
+
+.form-1 {
+    width: 100%;
+}
+
 /* 
 .person {
     width: 100%;

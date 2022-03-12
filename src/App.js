@@ -40,18 +40,26 @@ import EditPersonnel from './components/personnel/EditPersonnel.js';
 import ViewPersonnel from './components/personnel/ViewPersonnel.js';
 import EditWarehouse from './components/warehouse/EditWarehouse';
 import ViewWarehouse from './components/warehouse/ViewWarehouse';
+import Login from './components/login/LoginPage';
+import SideHub from './SideHub';
+import Register from './components/login/Register';
 
 function App() {
 
   return (
     <>
       <Router>
-        <div className="contentDiv">
+
+        {/* <Routes >
+        </Routes> */}
+
+        {/* <div className="contentDiv">
           <Sidebar />
           <div className="contentMargin">
-          <Navbar />
+            <Navbar /> */}
             <Routes >
-              <Route path="/" exact element={<Dashboard />} />
+            <Route element={<SideHub />} >
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pageworkplace" element={<PageWorkplace />} />
               <Route path="/pageworkplace/pageformaddwork" element={<PageFormAddWork />} />
               <Route path="/pageprocess" element={<PageProcess />} />
@@ -91,9 +99,12 @@ function App() {
               <Route path="/personnel/add" element={<AddPersonnel />} />
               <Route path="/personnel/edit/:perid" element={<EditPersonnel />} />
               <Route path="/personnel/view/:perid" element={<ViewPersonnel />} />
+            </Route>
+            <Route exact path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             </Routes>
-          </div>
-        </div>
+          {/* </div>
+        </div> */}
       </Router>
     </>
   );

@@ -4,15 +4,3 @@
     padding: 0;
   }
 
-.contentDiv {
-  display: flex;
-}
-
-.contentMargin { 
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem;
-}
-

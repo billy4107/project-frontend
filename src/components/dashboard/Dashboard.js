@@ -9,6 +9,8 @@ import "./Dashboard.css";
 import ChartSum from "./ChartSum";
 import ChartPurchase from "./ChartPurchase";
 import SumPersonnel from "./SumPersonnel";
+import jwt_decode from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
 
@@ -16,15 +18,18 @@ const Dashboard = () => {
     const [WarehouseList, setWarehouseList] = useState([]);
     const [personnelList, setPersonnelList] = useState([]);
 
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    }, []);
+
     useEffect(() => {
         getProduct();
-    }, [])
-
-    useEffect(() => {
         getWarehouse();
-    }, [])
-
-    useEffect(() => {
         getPersonnel();
     }, [])
 
@@ -52,11 +57,23 @@ const Dashboard = () => {
     const exp = freshList.filter(explist => explist.expdate <= newDate), expCount = exp.length
     const sumpersonnel = personnelList.length
 
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     return (
         <div>
             <div className="row row-cols-1 row-cols-md-4 g-4">
-
                 <div className="col">
                     <div className="card border-dark mb-3" >
                         <div className="card-body text-dark row">
@@ -116,19 +133,36 @@ const Dashboard = () => {
                         <div className="card-footer bg-transparent border-dark"><FaRegClock /> Updated on</div>
                     </div>
                 </div>
-
-                    <div className="col-md-9">
-                        <ChartSum />
+                {/* <div className="dbuttom">
+                    <div className="row">
+                        
                     </div>
 
 
-                    <div className="col-md-3">
-                        <SumPersonnel />
+                    <div className="row">
+                      
                     </div>
 
-                    <div className="col-md-12">
-                        <ChartPurchase />
+                    <div className="row">
+                       
                     </div>
+                </div> */}
+
+                <form className="form-1 row g-3" >
+
+                <div className="col-md-6 no1">
+                <ChartSum />
+                </div>
+
+                <div className="col-md-6 no2">
+                <SumPersonnel />
+                </div>
+
+                <div className="col-md-6 no3">
+                <ChartPurchase />
+                </div>
+
+            </form>
 
             </div>
         </div>

@@ -42,7 +42,7 @@ const AddSell = () => {
     .map((wdata) => {
       // console.log(workdata)
       return <tr key={wdata.wareid}>
-      <td><button type="button" className="btn btn-sm btnTable" onClick={() => {setWarehouse(wdata.wareid,wdata.mushroomname)}} >select</button>
+      <td><button type="button" className="btn btn-sm btnTable" onClick={() => {setWarehouse(wdata.wareid,wdata.mushroomname,)}} >select</button>
       </td>
       <td>{wdata.code}</td>
       <td>{wdata.mushroomname}</td>
@@ -70,7 +70,7 @@ const AddSell = () => {
       pid: pid,
       wareid: wareid
     });
-    // window.location.assign("/sellmushroom")
+    window.location.assign("/sellmushroom")
   }
 
   const getPartner = async () => {
@@ -134,7 +134,7 @@ const AddSell = () => {
 
         <div className="col-md-6">
           <label className="form-label"><b>Amount</b></label>
-          <input type="number" className="form-control" maxLength="10" onChange={(event) => { setAmount(event.target.value) }} required />
+          <input type="number" className="form-control" value={amount} maxLength="10" onChange={(event) => { setAmount(event.target.value) }} required />
         </div>
 
         <div className="col-md-6">

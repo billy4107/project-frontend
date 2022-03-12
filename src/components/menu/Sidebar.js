@@ -55,7 +55,7 @@ function Sidebar() {
                 <Menu iconShape="square">
                     <MenuItem icon={<MdDashboard />}>
                         Dashboard
-                        <Link to="/" />
+                        <Link to="/dashboard" />
                     </MenuItem>
 
                     <MenuItem icon={<RiTodoLine />}>
