@@ -8,7 +8,7 @@ const ItemSell = (props) => {
       <tr>
           <td>
               <Link to={`/sellmushroom/view/${sdata.sellid}`} type="button" className="btn btn-sm btnTable"> View</Link>
-              <Link to={`/sellmushroom/edit/${sdata.sellid}`} type="button" className="btn btn-sm btnTable"> Edit</Link>
+              {/* <Link to={`/sellmushroom/edit/${sdata.sellid}`} type="button" className="btn btn-sm btnTable"> Edit</Link> */}
               <button type="button" className="btn btn-sm btnTable" onClick={() => { deleteMember(sdata.sellid) }}>Delete</button>
           </td>
           <td>{sdata.numbersell}</td>

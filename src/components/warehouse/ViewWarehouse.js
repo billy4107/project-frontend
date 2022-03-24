@@ -4,6 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import "./ViewWarehouse.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const ViewWarehouse = () => {
     const { wareid } = useParams();
@@ -14,6 +16,29 @@ const ViewWarehouse = () => {
     const [code, setCode] = useState('');
     const [createdAt, setCreatedAt] = useState(new Date());
     const [updatedAt, setUpdatedAt] = useState(new Date());
+
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     const getWarehouseById = async (wareid) => {
         const response = await axios.get(`http://localhost:3001/warehouse/${wareid}`);

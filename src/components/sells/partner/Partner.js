@@ -5,11 +5,36 @@ import ItemPartner from './ItemPartner';
 import { Link } from 'react-router-dom';
 import SearchPartner from './SearchPartner';
 import "./Partner.css";
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const Partner = () => {
     const [partnerList, setPartnerList] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
+
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     useEffect(() => {
         getPartner();

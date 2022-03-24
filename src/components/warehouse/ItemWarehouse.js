@@ -10,7 +10,6 @@ const ItemWarehouse = (props) => {
                 <Link to={`/warehouse/edit/${wdata.wareid}`} type="button" className="btn btn-sm btnTable"> Edit</Link>
                 <button type="button" className="btn btn-sm btnTable" onClick={() => { deleteWarehouse(wdata.wareid) }}>Delete</button>
             </td>
-            <td>{wdata.code}</td>
             <td>{wdata.mushroomname}</td>
             <td>{wdata.quantity}</td>
             <td>{wdata.netweight}</td>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Line } from "react-chartjs-2";
-// import { Chart } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import 'chartjs-adapter-moment';
 
@@ -15,7 +14,7 @@ const ChartPurchase = () => {
         .then(res => {
           console.log(res);
           for (const dataObj of res.data) {
-            sellDate.push((dataObj.createdAt));
+            sellDate.push(new Date(dataObj.createdAt).toLocaleString("th-TH"));
             sellPrice.push(parseInt(dataObj.price));
           }
           setChartData({
@@ -50,20 +49,9 @@ const ChartPurchase = () => {
           <div className="card-body text-dark">
             <h3 className="mt-10">รับซื้อ</h3>
             <Line data={chartData} options={{
-              responsive: true,
-              // scales: {
-              //   xAxes: [
-              //     {
-              //       type: 'time',
-              //       time: {
-              //           unit: 'week'
-              //       }
-              //     }
-              //   ]
-              // }
+              responsive: true
             }} />
           </div>
-          {/* <div className="card-footer bg-transparent border-dark"><FaRegClock /> Updated on</div> */}
         </div>
       </div>
     );

@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./AddMember.css";
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const AddMember = () => {
     const [memberID, setMemberID] = useState('');
@@ -10,6 +12,29 @@ const AddMember = () => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [status, setStatus] = useState(true);
+
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     const addMember = async (event) => {
         event.preventDefault();
@@ -34,7 +59,7 @@ const AddMember = () => {
 
                 <div className="col-md-12 form-check form-switch">
                     <label className="form-label"><b>Status</b></label>
-                    <input className="form-check-input" type="checkbox" onChange={(event) => setStatus((event).target.checked)}/>
+                    <input className="form-check-input" type="checkbox" onChange={(event) => setStatus((event).target.checked)} />
                 </div>
 
                 <div className="col-md-6">

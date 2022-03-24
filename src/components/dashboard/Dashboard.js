@@ -18,14 +18,13 @@ const Dashboard = () => {
     const [WarehouseList, setWarehouseList] = useState([]);
     const [personnelList, setPersonnelList] = useState([]);
 
-    const [, setName] = useState('');
     const [, setToken] = useState('');
     const [, setExpire] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
         refreshToken();
-    }, []);
+    });
 
     useEffect(() => {
         getProduct();
@@ -62,7 +61,6 @@ const Dashboard = () => {
             const response = await axios.get('http://localhost:3001/token');
             setToken(response.data.accessToken);
             const decoded = jwt_decode(response.data.accessToken);
-            setName(decoded.name);
             setExpire(decoded.exp);
         } catch (error) {
             if (error.response) {
@@ -133,20 +131,6 @@ const Dashboard = () => {
                         <div className="card-footer bg-transparent border-dark"><FaRegClock /> Updated on</div>
                     </div>
                 </div>
-                {/* <div className="dbuttom">
-                    <div className="row">
-                        
-                    </div>
-
-
-                    <div className="row">
-                      
-                    </div>
-
-                    <div className="row">
-                       
-                    </div>
-                </div> */}
 
                 <form className="form-1 row g-3" >
 

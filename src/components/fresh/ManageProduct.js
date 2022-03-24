@@ -5,14 +5,37 @@ import axios from 'axios'
 import ItemProduct from './ItemProduct'
 import ReactPaginate from 'react-paginate'
 import SearchProduct from './SearchProduct'
-import ViewProduct from './ViewProduct'
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const ManageProduct = () => {
 
     const [freshList, setFreshList] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [searchText, setSearchText] = useState('');
-    const [selectedTable, setSelectedTable] = useState(null);
+
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     const getProduct = async () => {
         axios.get("http://localhost:3001/productfresh").then((response) => {
@@ -32,14 +55,6 @@ const ManageProduct = () => {
         getProduct();
     }, [])
 
-    const onTableOpenClick = (theTable) => setSelectedTable(theTable);
-    const onTableCloseClick = () => setSelectedTable(null);
-
-    let viewfresh = null;
-    if (!!selectedTable) {
-        viewfresh = <ViewProduct fdata={selectedTable} onBgClick={onTableCloseClick} />
-    }
-
     const workPerPage = 10;
     const pagesVisited = pageNumber * workPerPage;
 
@@ -52,7 +67,7 @@ const ManageProduct = () => {
             // console.log(workdata)
             let newDate = new Date().toISOString().split('T')[0]
             let color = (fdata.expdate <= newDate ? 'red' : '');
-            return <ItemProduct key={fdata.pfid} fdata={fdata} onTableOpenClick={onTableOpenClick} deleteProduct={deleteProduct} color={color} />
+            return <ItemProduct key={fdata.pfid} fdata={fdata} deleteProduct={deleteProduct} color={color} />
         });
 
 
@@ -68,10 +83,10 @@ const ManageProduct = () => {
                 <p>Manage Product</p>
             </div>
 
-            <StatusProduct />            
-            
+            <StatusProduct />
+
             <SearchProduct value={searchText} onValueChange={setSearchText} />
-            
+
             <div className="table-responsive text-nowrap">
                 <table className="table table-sm table-hover">
                     <thead>
@@ -104,7 +119,6 @@ const ManageProduct = () => {
                     activeClassName={"paginationActive"}
                 />
             </div>
-            {viewfresh}
         </div >
     )
 }

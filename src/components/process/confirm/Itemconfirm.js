@@ -1,13 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 
 const Itemconfirm = (props) => {
-        const { thecard, onTableOpenClick, onTableSubmitOpenClick} = props
+        const { thecard, onTableOpenClick} = props
 
         return (
             <tr>
                 <td><button type="button" className="btn btn-sm btnTable" onClick={() => { onTableOpenClick(thecard) }}> View</button>
-                <Link to={`/pageprocess/confirmform/${thecard.proid}`} type="button" className="btn btn-sm btnTable" onClick={() => { onTableSubmitOpenClick(thecard) }}>Submit</Link>
                 </td>
                 <td>{thecard.mushroomname}</td>
                 <td>{thecard.sortingweight}</td>

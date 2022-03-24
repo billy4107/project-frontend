@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const ViewPersonnel = () => {
   const [codename, setCodename] = useState('');
-  const [name, setName] = useState('');
+  const [namee, setNamee] = useState('');
   const [birthday, setBirthday] = useState(new Date());
   const [idcard, setIdcard] = useState('');
   const [phone, setPhone] = useState('');
@@ -13,11 +15,34 @@ const ViewPersonnel = () => {
   const [status, setStatus] = useState(true);
   const { perid } = useParams();
 
+  const [, setName] = useState('');
+  const [, setToken] = useState('');
+  const [, setExpire] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    refreshToken();
+  });
+
+  const refreshToken = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/token');
+      setToken(response.data.accessToken);
+      const decoded = jwt_decode(response.data.accessToken);
+      setName(decoded.name);
+      setExpire(decoded.exp);
+    } catch (error) {
+      if (error.response) {
+        navigate("/");
+      }
+    }
+  }
+
   const getPersonnelById = async (perid) => {
     const response = await axios.get(`http://localhost:3001/personnel/${perid}`);
     console.log(response);
     setCodename(response.data.codename);
-    setName(response.data.name);
+    setNamee(response.data.name);
     setBirthday(response.data.birthday);
     setIdcard(response.data.idcard);
     setPhone(response.data.phone);
@@ -51,7 +76,7 @@ const ViewPersonnel = () => {
 
         <div className="col-md-6">
           <label className="form-label"><b>Name</b></label>
-          <input type="text" className="form-control" value={name} disabled />
+          <input type="text" className="form-control" value={namee} disabled />
         </div>
 
         <div className="col-md-6">

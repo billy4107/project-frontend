@@ -1,0 +1,26 @@
+.r1 {
+  /* margin-top: 1rem;
+    background-color: #cd5c5c;
+    border: none;
+    height: 3rem; */
+  border: none;
+  width: 45%;
+  height: 3rem;
+  color: white;
+  margin-top: 1rem;
+  margin-right: 2rem;
+  background-color: #5c995f;
+}
+
+.r2 {
+  /* margin-top: 1rem;
+    background-color: #cd5c5c;
+    border: none;
+    height: 3rem; */
+  border: none;
+  width: 45%;
+  height: 3rem;
+  color: white;
+  margin-top: 1rem;
+  background-color: #605c99;
+}

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import pic7 from '../img/pic7.jpg'
+import pic4 from '../img/pic4.jpg'
 
 function Login() {
 
@@ -27,36 +29,45 @@ function Login() {
     }
 
     return (
-        <div className="card-bg">
-            <div className="card-container">
-                <div className="card-content-top"><p id="form">Login Form</p></div>
+        <div className="card-bg" style={{ backgroundImage: `url(${pic7})` }}>
+            <div className="card-group">
+                <div className="card">
+                    <div className="pic-left">
+                        <img src={pic4} alt="pic4" />
+                    </div>
+                </div>
 
-                <form onSubmit={Auth}>
-                    <p className="has-text-centered">{msg}</p>
-                    <div className="card-content-down">
-                        <h1 id="login">login</h1>
-                        <div className="form-group">
-                            <i className="fa fa-user icon" />
-                            <input className="form-control" type="text" id="username" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        </div>
+                <div className="card">
+                    {/* <div className="card-container"> */}
 
-                        <div className="form-group">
-                            <i className="fa fa-key icon" />
-                            <input className="form-control" type="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-
-                        <div className="form-group-button">
-                            <div>
-                                <button type="Submit" className="btn btn-danger submit">Log In</button>
+                    <form onSubmit={Auth}>
+                        <p className="has-text-centered">{msg}</p>
+                        <div className="card-content-down">
+                            <h1 id="login">login</h1>
+                            <div className="form-group">
+                                <i className="fa fa-user icon" />
+                                <input className="form-control" type="text" id="username" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
 
-                            <Link to="/register">
-                            <button type="Submit" className="btn btn-danger submit">Register</button>
-                            </Link>
-                        </div>
+                            <div className="form-group">
+                                <i className="fa fa-key icon" />
+                                <input className="form-control" type="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </div>
 
-                    </div>
-                </form>
+                            <div className="form-group-button">
+                                <div>
+                                    <button type="Submit" className="btn b1 submit">Log In</button>
+                                </div>
+
+                                <Link to="/register">
+                                    <button type="Submit" className="btn b2 submit">Register</button>
+                                </Link>
+                            </div>
+
+                        </div>
+                    </form>
+                    {/* </div> */}
+                </div>
             </div>
         </div>
 

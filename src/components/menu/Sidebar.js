@@ -73,16 +73,22 @@ function Sidebar() {
                             Add Product
                             <Link to="/pagewarehouse/fresh/addproduct" />
                         </MenuItem>
-                        <MenuItem
-                        >Manage Product
+                        <MenuItem>
+                            Manage Product
                             <Link to="/pagewarehouse/fresh/manageproduct" />
                         </MenuItem>
                     </SubMenu>
 
-                    <MenuItem icon={<FaWarehouse />}>
-                        Warehouse
-                        <Link to="/warehouse" />
-                    </MenuItem>
+                    <SubMenu title="Warehouse" icon={<FaWarehouse />}>
+                        <MenuItem>
+                            Add Warehouse
+                            <Link to="/warehouse/add" />
+                        </MenuItem>
+                        <MenuItem>
+                            Manage Warehouse
+                            <Link to="/warehouse" />
+                        </MenuItem>
+                    </SubMenu>
 
                     <SubMenu title="Purchase" icon={<MdAddShoppingCart />}>
                         <MenuItem>

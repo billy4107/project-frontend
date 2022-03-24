@@ -15,7 +15,7 @@ function Navbar() {
 
     useEffect(() => {
         getUsers();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const axiosJWT = axios.create();
 

@@ -5,17 +5,40 @@ import NavTab from '../NavTab';
 import axios from 'axios';
 import * as FaIcons from "react-icons/fa";
 import ReactPaginate from 'react-paginate';
-import SubmitInto from "./SubmitInto";
 import Itemconfirm from "./Itemconfirm";
 import SearchConfirm from "./SearchConfirm";
 import ViewConfirm from "./ViewConfirm";
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 function ConfirmForm() {
     const [allCard, setAllCard] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const [selectedTable, setSelectedTable] = useState(null);
-    const [selectedTableSubmit, setSelectedTableSubmit] = useState(false);
+
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     const getAll = async () => {
         axios.get("http://localhost:3001/processed").then((response) => { setAllCard(response.data); });
@@ -33,18 +56,6 @@ function ConfirmForm() {
         viewConfirm = <ViewConfirm thecard={selectedTable} onBgClick={onTableCloseClick} />
     }
 
-    let warehouseSubmit = null;
-    if (!!selectedTableSubmit) {
-        warehouseSubmit = <SubmitInto onBgClick={onTableSubmitCloseClick} />
-    }
-
-    function onTableSubmitOpenClick(theSubmit) {
-        setSelectedTableSubmit(theSubmit)
-    };
-    function onTableSubmitCloseClick() {
-        setSelectedTableSubmit(null);
-    };
- 
     const confirmPerPage = 10;
     const pagesVisited = pageNumber * confirmPerPage;
 
@@ -56,7 +67,7 @@ function ConfirmForm() {
         .slice(pagesVisited, pagesVisited + confirmPerPage)
         .map((thecard) => {
             // console.log(thecard)
-            return <Itemconfirm key={thecard.proid} thecard={thecard} onTableOpenClick={onTableOpenClick} onTableSubmitOpenClick={onTableSubmitOpenClick} />
+            return <Itemconfirm key={thecard.proid} thecard={thecard} onTableOpenClick={onTableOpenClick} />
         })
 
     const pageCount = Math.ceil(allCard.length / confirmPerPage);
@@ -116,7 +127,6 @@ function ConfirmForm() {
                 />
             </div>
             {viewConfirm}
-            {warehouseSubmit}
         </div>
     );
 }

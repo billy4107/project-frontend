@@ -5,7 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { subDays } from 'date-fns';
 import { addDays } from 'date-fns';
 import axios from 'axios';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const EditProduct = () => {
     const [idproduct, setIdproduct] = useState('');
@@ -16,6 +17,29 @@ const EditProduct = () => {
     const [importdate, setImportdate] = useState(new Date());
     const [expdate, setExpdate] = useState(new Date());
     const { pfid } = useParams();
+
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     const editProduct = async (event) => {
         event.preventDefault();

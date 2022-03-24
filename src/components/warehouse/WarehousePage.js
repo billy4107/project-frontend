@@ -4,14 +4,37 @@ import ReactPaginate from 'react-paginate';
 import ItemWarehouse from './ItemWarehouse';
 import StatusWarehouse from './StatusWarehouse';
 import SearchWarehouse from './SearchWarehouse';
-import ViewWarehouse from './ViewWarehouse';
-import EditWarehouse from './EditWarehouse';
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const WarehousePage = () => {
 
     const [WarehouseList, setWarehouseList] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
+
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
 
     useEffect(() => {
         getWarehouse();
@@ -65,7 +88,6 @@ const WarehousePage = () => {
                     <thead>
                         <tr>
                             <th className='col' scope="col">Action</th>
-                            <th className='col' scope="col">Code</th>
                             <th className='col' scope="col">Name</th>
                             <th className='col' scope="col">Quantity</th>
                             <th className='col' scope="col">Net weight</th>

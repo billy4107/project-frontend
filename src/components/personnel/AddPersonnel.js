@@ -1,22 +1,47 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import { Link } from 'react-router-dom';
+  import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const AddPersonnel = () => {
   const [codename, setCodename] = useState('');
-  const [name, setName] = useState('');
+  const [namee, setNamee] = useState('');
   const [birthday, setBirthday] = useState(new Date());
   const [idcard, setIdcard] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [status, setStatus] = useState(true);
 
+    const [, setName] = useState('');
+    const [, setToken] = useState('');
+    const [, setExpire] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        refreshToken();
+    });
+
+    const refreshToken = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/token');
+            setToken(response.data.accessToken);
+            const decoded = jwt_decode(response.data.accessToken);
+            setName(decoded.name);
+            setExpire(decoded.exp);
+        } catch (error) {
+            if (error.response) {
+                navigate("/");
+            }
+        }
+    }
+
   const addPersonnel = async (event) => {
     event.preventDefault();
     await axios.post("http://localhost:3001/personnel", {
       codename: codename,
-      name: name,
+      name: namee,
       birthday: birthday,
       idcard: idcard,
       phone: phone,
@@ -46,7 +71,7 @@ const AddPersonnel = () => {
 
         <div className="col-md-6">
           <label className="form-label"><b>Name</b></label>
-          <input type="text" className="form-control" onChange={(event) => { setName(event.target.value) }} required />
+          <input type="text" className="form-control" onChange={(event) => { setNamee(event.target.value) }} required />
         </div>
 
         <div className="col-md-6">

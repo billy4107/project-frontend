@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 import SearchWarehouse from '../../warehouse/SearchWarehouse';
-// import TableProduct from './TableProduct';
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const AddSell = () => {
   const [partnerList, setPartnerList] = useState([]);
@@ -16,6 +17,29 @@ const AddSell = () => {
   const [searchText, setSearchText] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
 
+  const [, setName] = useState('');
+  const [, setToken] = useState('');
+  const [, setExpire] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    refreshToken();
+  });
+
+  const refreshToken = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/token');
+      setToken(response.data.accessToken);
+      const decoded = jwt_decode(response.data.accessToken);
+      setName(decoded.name);
+      setExpire(decoded.exp);
+    } catch (error) {
+      if (error.response) {
+        navigate("/");
+      }
+    }
+  }
+
   useEffect(() => {
     getWarehouse();
   }, [])
@@ -26,9 +50,9 @@ const AddSell = () => {
     });
   }
 
-  function setWarehouse(ware,name) {
-      setWareid(ware)
-      setMushroomname(name)
+  function setWarehouse(ware, name) {
+    setWareid(ware)
+    setMushroomname(name)
   }
 
   const WarehousePerPage = 5;
@@ -42,14 +66,13 @@ const AddSell = () => {
     .map((wdata) => {
       // console.log(workdata)
       return <tr key={wdata.wareid}>
-      <td><button type="button" className="btn btn-sm btnTable" onClick={() => {setWarehouse(wdata.wareid,wdata.mushroomname,)}} >select</button>
-      </td>
-      <td>{wdata.code}</td>
-      <td>{wdata.mushroomname}</td>
-      <td>{wdata.quantity}</td>
-      <td>{wdata.netweight}</td>
-      <td>{new Date(wdata.createdAt).toLocaleDateString("th-TH")}</td>
-  </tr>
+        <td><button type="button" className="btn btn-sm btnTable" onClick={() => { setWarehouse(wdata.wareid, wdata.mushroomname) }} ><Link to={`/sellmushroom/add/${wdata.wareid}`} type="button" className="btn btn-sm btnTable"> select</Link></button>
+        </td>
+        <td>{wdata.mushroomname}</td>
+        <td>{wdata.quantity}</td>
+        <td>{wdata.netweight}</td>
+        <td>{new Date(wdata.createdAt).toLocaleDateString("th-TH")}</td>
+      </tr>
     });
   const pageCount = Math.ceil(warehouseList.length / WarehousePerPage);
 
@@ -71,6 +94,13 @@ const AddSell = () => {
       wareid: wareid
     });
     window.location.assign("/sellmushroom")
+    updateWarehouse(wareid);
+  }
+
+  const updateWarehouse = async (wareid) => {
+    await axios.patch(`http://localhost:3001/warehouse/sell/${wareid}`, {
+      amount: amount,
+    });
   }
 
   const getPartner = async () => {
@@ -89,14 +119,13 @@ const AddSell = () => {
         <p>New Buy</p>
       </div>
       <form className="form-input row g-3" autoComplete="off" onSubmit={addSell} >
-        
-      <SearchWarehouse value={searchText} onValueChange={setSearchText} />
+
+        <SearchWarehouse value={searchText} onValueChange={setSearchText} />
 
         <table className="table table-sm table-hover ">
           <thead>
             <tr>
               <th className='col' scope="col">Action</th>
-              <th className='col' scope="col">Code</th>
               <th className='col' scope="col">Name</th>
               <th className='col' scope="col">Quantity</th>
               <th className='col' scope="col">Net weight</th>
@@ -108,33 +137,33 @@ const AddSell = () => {
           </tbody>
         </table>
         <div className="thepagination">
-                <ReactPaginate
-                    previousLabel={"Previous"}
-                    nextLabel={"Next"}
-                    pageCount={pageCount}
-                    onPageChange={changePage}
-                    containerClassName={"paginationBttns"}
-                    previousLinkClassName={"previousBttn"}
-                    nextLinkClassName={"nextBttn"}
-                    activeClassName={"paginationActive"}
-                />
-            </div>
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            activeClassName={"paginationActive"}
+          />
+        </div>
       </form >
 
       <form className="form-input row g-3" autoComplete="off" onSubmit={addSell} >
         <div className="col-md-6">
           <label className="form-label"><b>ID</b></label>
-          <input type="text" className="form-control" value={wareid} onChange={(event) => { setWareid(event.target.value) }} required disabled />
+          <input type="text" className="form-control" name="wareid" value={wareid} onChange={(event) => { setWareid(event.target.value) }} required disabled />
         </div>
 
         <div className="col-md-6">
           <label className="form-label"><b>Mushroom name</b></label>
-          <input type="text" className="form-control" value={mushroomname} onChange={(event) => { setMushroomname(event.target.value) }} required disabled />
+          <input type="text" className="form-control" name="mushroomname" value={mushroomname} onChange={(event) => { setMushroomname(event.target.value) }} required disabled />
         </div>
 
         <div className="col-md-6">
           <label className="form-label"><b>Amount</b></label>
-          <input type="number" className="form-control" value={amount} maxLength="10" onChange={(event) => { setAmount(event.target.value) }} required />
+          <input type="number" className="form-control" name="amount" maxLength="10" onChange={(event) => { setAmount(event.target.value) }} required />
         </div>
 
         <div className="col-md-6">

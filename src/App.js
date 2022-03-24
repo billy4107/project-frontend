@@ -9,8 +9,6 @@ import PageFormAddWork from './page/PageAddWork';
 import Dried from './components/process/dried/Dried';
 import Packing from './components/process/packing/Packing';
 import 'react-tabs/style/react-tabs.css';
-import Sidebar from './components/menu/Sidebar';
-import Navbar from './components/nav/Navbar';
 import EditWorkplace from './components/workplace/EditWorkplace';
 import Sorting from './components/process/sorting/Sorting';
 import AddProduct from './components/fresh/AddProduct';
@@ -43,6 +41,8 @@ import ViewWarehouse from './components/warehouse/ViewWarehouse';
 import Login from './components/login/LoginPage';
 import SideHub from './SideHub';
 import Register from './components/login/Register';
+import AddWarehouse from './components/warehouse/AddWarehouse';
+import ViewProduct from './components/fresh/ViewProduct';
 
 function App() {
 
@@ -73,9 +73,11 @@ function App() {
               <Route path="/pageprocess/packing/:proid" element={<Packing />} />
               <Route path="/pagewarehouse/fresh/addproduct" element={<AddProduct />} />
               <Route path="/pagewarehouse/fresh/manageproduct" element={<ManageProduct />} />
+              <Route path="/pagewarehouse/fresh/view/:pfid" element={<ViewProduct />} />
               <Route path="/pagewarehouse/fresh/edit/:pfid" element={<EditProduct />} />
               <Route path="/pageprocess/confirmform/:proid" element={<ConfirmForm />} />
               <Route path="/warehouse" element={<WarehousePage />} />
+              <Route path="/warehouse/add" element={<AddWarehouse />} />
               <Route path="/warehouse/edit/:wareid" element={<EditWarehouse />} />
               <Route path="/warehouse/view/:wareid" element={<ViewWarehouse />} />
               <Route path="/member" element={<Member />} />
@@ -92,6 +94,7 @@ function App() {
               <Route path="/partner/view/:pid" element={<ViewPartner />} />
               <Route path="/sellmushroom" element={<Sell />} />
               <Route path="/sellmushroom/add" element={<AddSell />} />
+              <Route path="/sellmushroom/add/:wareid" element={<AddSell />} />
               <Route path="/sellmushroom/edit/:sellid" element={<EditSell />} />
               <Route path="/sellmushroom/view/:sellid" element={<ViewSell />} />
               <Route path="/sellmushroom/select" element={<AddSell />} />
