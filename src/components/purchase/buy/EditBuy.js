@@ -48,7 +48,7 @@ const EditBuy = () => {
 
     const getBuyById = async (buyid) => {
         const response = await axios.get(`http://localhost:3001/buymushroom/${buyid}`);
-        console.log(response);
+        // console.log(response);
         setMushroomname(response.data.mushroomname);
         setAmount(response.data.amount);
         setPrice(response.data.price);
@@ -61,7 +61,7 @@ const EditBuy = () => {
         }
     }, [buyid])
 
-    console.log(fmid['membername']);
+    // console.log(fmid['membername']);
 
     return (
         <div>

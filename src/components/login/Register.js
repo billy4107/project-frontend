@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import pic7 from '../img/pic7.jpg'
-import pic4 from '../img/pic4.jpg'
+import pic12 from '../img/pic12.jpg'
 import "./Register.css";
 
 const Register = () => {
@@ -29,15 +28,9 @@ const Register = () => {
     }
 
     return (
-        <div className="card-bg" style={{ backgroundImage: `url(${pic7})` }}>
+        <div className="card-bg" style={{ backgroundImage: `url(${pic12})` }}>
             <div className="card-group">
-                <div className="card">
-                    <div className="pic-left">
-                        <img src={pic4} alt="pic4" />
-                    </div>
-                </div>
-
-                <div className="card">
+                <div className="card c1">
 
                     <form onSubmit={Register}>
                         <p className="has-text-centered">{msg}</p>

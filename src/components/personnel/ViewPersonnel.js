@@ -40,7 +40,7 @@ const ViewPersonnel = () => {
 
   const getPersonnelById = async (perid) => {
     const response = await axios.get(`http://localhost:3001/personnel/${perid}`);
-    console.log(response);
+    // console.log(response);
     setCodename(response.data.codename);
     setNamee(response.data.name);
     setBirthday(response.data.birthday);

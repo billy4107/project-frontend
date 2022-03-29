@@ -57,7 +57,7 @@ const EditProduct = () => {
 
     const getProductById = async (pfid) => {
         const response = await axios.get(`http://localhost:3001/productfresh/${pfid}`);
-        console.log(response);
+        // console.log(response);
         setIdproduct(response.data.idproduct);
         setMushroomname(response.data.mushroomname);
         setAmount(response.data.amount);

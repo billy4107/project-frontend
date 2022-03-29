@@ -8,6 +8,7 @@ import ItemWorkplace from "./ItemWorkplace";
 import SearchWorkplace from "./SearchWorkplace";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 function Workplace() {
 
@@ -69,7 +70,7 @@ function Workplace() {
     }
 
     const deleteWorkplace = async (wid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/workplace/${wid}`);
             getWorkplace();

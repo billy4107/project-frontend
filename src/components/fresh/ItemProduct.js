@@ -8,7 +8,6 @@ const ItemProduct = (props) => {
     return (
         <tr style={{ color: color }}>
             <td> 
-                 {/* <button type="button" className="btn btn-sm btnTable" onClick={() => { onTableOpenClick(fdata) }}>View</button> */}
                 <Link to={`/pagewarehouse/fresh/view/${fdata.pfid}`} type="button" className="btn btn-sm btnTable"> View</Link>
 
                 <Link to={`/pagewarehouse/fresh/edit/${fdata.pfid}`} type="button" className="btn btn-sm btnTable"> Edit</Link>

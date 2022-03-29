@@ -7,6 +7,7 @@ import ItemBuy from './ItemBuy';
 import SearchBuy from './SearchBuy';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const BuyMushroom = () => {
     const [buyList, setBuyList] = useState([]);
@@ -46,13 +47,13 @@ const BuyMushroom = () => {
 
     const getBuy = async () => {
         axios.get("http://localhost:3001/buymushroom").then((response) => {
-            console.log(response)
+            // console.log(response)
             setBuyList(response.data);
         });
     }
 
     const deleteMember = async (fmid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/buymushroom/${fmid}`);
             getBuy();
@@ -65,7 +66,7 @@ const BuyMushroom = () => {
         })
         .slice(pagesVisited, pagesVisited + WarehousePerPage)
         .map((bdata) => {
-            console.log(bdata)
+            // console.log(bdata)
             return <ItemBuy key={bdata.buyid} bdata={bdata} deleteMember={deleteMember} />
         });
 

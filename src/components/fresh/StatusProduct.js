@@ -22,9 +22,9 @@ const StatusProduct = () => {
         , 0)
 
     let newDate = new Date().toISOString().split('T')[0]
-    console.log(newDate)
+    // console.log(newDate)
     const exp = freshList.filter(explist => explist.expdate <= newDate), expCount = exp.length
-    console.log(exp)
+    // console.log(exp)
 
     return (
         <div className="row">

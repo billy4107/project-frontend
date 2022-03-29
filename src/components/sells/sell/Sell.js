@@ -6,6 +6,7 @@ import SearchSell from './SearchSell';
 import ItemSell from './ItemSell';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const Sell = () => {
   const [sellList, setSellList] = useState([]);
@@ -41,13 +42,13 @@ const Sell = () => {
 
   const getSell = async () => {
     axios.get("http://localhost:3001/sellmushroom").then((response) => {
-      console.log(response)
+      // console.log(response)
       setSellList(response.data);
     });
   }
 
   const deleteMember = async (sellid) => {
-    const answer = window.confirm("are you sure?");
+    const answer = await confirm("are you sure?");
     if (answer) {
       await axios.delete(`http://localhost:3001/sellmushroom/${sellid}`);
       getSell();
@@ -63,7 +64,7 @@ const Sell = () => {
     })
     .slice(pagesVisited, pagesVisited + WarehousePerPage)
     .map((sdata) => {
-      console.log(sdata)
+      // console.log(sdata)
       return <ItemSell key={sdata.sellid} sdata={sdata} deleteMember={deleteMember} />
     });
 

@@ -8,6 +8,7 @@ import ItemPacking from "./ItemPacking";
 import EditPacking from "./EditPacking";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 function Packing() {
     const [inputEdit, setInputEdit] = useState(null);
@@ -41,7 +42,7 @@ function Packing() {
     };
 
     const deleteProcessed = async (proid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/processed/${proid}`);
             getPacking();
@@ -49,7 +50,7 @@ function Packing() {
     };
 
     const onSetPageAdd = async (proid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (!!proid) {
             if (answer) { await axios.patch(`http://localhost:3001/processed/sid4/${proid}`) }
         }

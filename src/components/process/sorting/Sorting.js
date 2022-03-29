@@ -9,8 +9,10 @@ import axios from 'axios';
 import EditSorting from "./EditSorting";
 import { emptySort } from "../../../data/Empty";
 import NavTab from "../NavTab";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const Sorting = () => {
+
     const [, setInput] = useState(emptySort);
     const [inputAdd, setInputAdd] = useState(null);
     const [inputEdit, setInputEdit] = useState(null);
@@ -63,7 +65,7 @@ const Sorting = () => {
     };
 
     const deleteProcessed = async (proid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("Are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/processed/${proid}`);
             getSorting();
@@ -71,7 +73,7 @@ const Sorting = () => {
     };
 
     const onSetPageAdd = async (proid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("Are you sure?");
         if (!!proid) {
             if (answer) { await axios.patch(`http://localhost:3001/processed/sid2/${proid}`) }
         }

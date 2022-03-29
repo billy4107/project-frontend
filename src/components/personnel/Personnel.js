@@ -7,6 +7,7 @@ import SearchPersonnel from './SearchPersonnel';
 import "./Personnel.css";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const Personnel = () => {
     const [personnelList, setPersonnelList] = useState([]);
@@ -47,7 +48,7 @@ const Personnel = () => {
     }
 
     const deletePersonnel = async (perid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/personnel/${perid}`);
             getPersonnel();

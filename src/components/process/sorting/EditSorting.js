@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import {confirm} from 'react-bootstrap-confirmation';
 
 const EditSorting = (props) => {
     const { proid } = useParams();
@@ -27,7 +28,7 @@ const EditSorting = (props) => {
 
     const getProcessedById = async (proid) => {
         const response = await axios.get(`http://localhost:3001/processed/${proid}`);
-        console.log(response);
+        // console.log(response);
         setMushroomname(response.data.mushroomname);
         setSortingweight(response.data.sortingweight);
     };

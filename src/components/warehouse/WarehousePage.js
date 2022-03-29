@@ -6,6 +6,7 @@ import StatusWarehouse from './StatusWarehouse';
 import SearchWarehouse from './SearchWarehouse';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const WarehousePage = () => {
 
@@ -47,7 +48,7 @@ const WarehousePage = () => {
     }
 
     const deleteWarehouse = async (wareid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/warehouse/${wareid}`);
             getWarehouse();

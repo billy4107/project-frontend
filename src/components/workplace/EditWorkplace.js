@@ -54,7 +54,7 @@ const EditWorkplace = () => {
 
     const getWorkplaceById = async (wid) => {
         const response = await axios.get(`http://localhost:3001/workplace/${wid}`);
-        console.log(response);
+        // console.log(response);
         setWorktype(response.data.worktype);
         setHarvest(response.data.harvest);
         setDamaged(response.data.damaged);

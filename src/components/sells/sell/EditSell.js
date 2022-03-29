@@ -47,7 +47,7 @@ const EditSell = () => {
 
   const getSellById = async (sellid) => {
     const response = await axios.get(`http://localhost:3001/sellmushroom/${sellid}`);
-    console.log(response);
+    // console.log(response);
     setMushroomname(response.data.mushroomname);
     setAmount(response.data.amount);
     setPrice(response.data.price);

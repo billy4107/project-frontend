@@ -25,7 +25,7 @@ const ChartSum = () => {
     let sellPrice = [];
     axios.get("http://localhost:3001/sellmushroom")
       .then(res => {
-        console.log(res);
+        // console.log(res);
         for (const dataObj of res.data) {
           sellDate.push(new Date(dataObj.createdAt).toLocaleString("th-TH"));
           sellPrice.push(parseInt(dataObj.price));
@@ -50,7 +50,7 @@ const ChartSum = () => {
       .catch(err => {
         console.log(err);
       });
-    console.log(sellDate, sellPrice);
+    // console.log(sellDate, sellPrice);
   };
 
   useEffect(() => {

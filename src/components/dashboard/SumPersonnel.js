@@ -41,7 +41,7 @@ const SumPersonnel = () => {
     <div className="sumper">
       <div className="card border-dark mb-3" >
         <div className="card-body text-dark">
-          <h3 className="mt-10">ยอดขาย</h3>
+          <h3 className="mt-10">ยอดเก็บผลผลิต</h3>
           <div className="table-responsive text-nowrap">
             <table className="table table-sm table-hover">
               <thead>

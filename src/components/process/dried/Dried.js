@@ -8,6 +8,7 @@ import ItemDried from "./ItemDried";
 import EditDried from "./EditDried";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 function Dried() {
     const [inputEdit, setInputEdit] = useState(null);
@@ -41,7 +42,7 @@ function Dried() {
     };
 
     const deleteProcessed = async (proid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/processed/${proid}`);
             getDried();
@@ -49,7 +50,7 @@ function Dried() {
     };
 
     const onSetPageAdd = async (proid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (!!proid) {
             if (answer) { await axios.patch(`http://localhost:3001/processed/sid3/${proid}`) }
         }
@@ -63,7 +64,7 @@ function Dried() {
     const cardElements = allCard
         .filter(thecard => thecard.sid === 2)
         .map((thecard) => {
-            console.log(thecard)
+            // console.log(thecard)
             return <ItemDried key={thecard.proid} thecard={thecard} deleteProcessed={deleteProcessed} onSetPageAdd={onSetPageAdd} setEdit={setEdit} />
         })
 

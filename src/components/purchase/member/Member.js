@@ -7,6 +7,7 @@ import "./Member.css";
 import SearchMember from './SearchMember';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const Member = () => {
 
@@ -48,7 +49,7 @@ const Member = () => {
     }
 
     const deleteMember = async (fmid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/farmmember/${fmid}`);
             getMember();

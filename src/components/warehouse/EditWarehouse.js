@@ -12,7 +12,7 @@ const EditWarehouse = () => {
     const [mushroomname, setMushroomname] = useState('');
     const [quantity, setQuantity] = useState('');
     const [netweight, setNetweight] = useState('');
-    const [code, setCode] = useState('');
+    // const [code, setCode] = useState('');
 
     const [, setName] = useState('');
     const [, setToken] = useState('');
@@ -49,11 +49,11 @@ const EditWarehouse = () => {
 
     const getWarehouseById = async (wareid) => {
         const response = await axios.get(`http://localhost:3001/warehouse/${wareid}`);
-        console.log(response);
+        // console.log(response);
         setMushroomname(response.data.mushroomname);
         setQuantity(response.data.quantity);
         setNetweight(response.data.netweight);
-        setCode(response.data.code);
+        // setCode(response.data.code);
     };
 
     useEffect(() => {
@@ -70,10 +70,10 @@ const EditWarehouse = () => {
 
             <form className="form-input row g-3" autoComplete="off" onSubmit={editWarehouse} >
 
-                <div className="col-md-6">
+                {/* <div className="col-md-6">
                     <label className="form-label col-md-12">Mushroom Name</label>
                     <input type="text" className="form-control" value={code} disabled />
-                </div>
+                </div> */}
 
                 <div className="col-md-6">
                     <label className="form-label col-md-12">Mushroom Name</label>

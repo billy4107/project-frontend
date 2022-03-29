@@ -37,7 +37,7 @@ const ViewPartner = () => {
 
   const getPartnerById = async (pid) => {
     const response = await axios.get(`http://localhost:3001/partner/${pid}`);
-    console.log(response);
+    // console.log(response);
     setPartnerID(response.data.partnerID);
     setPartnername(response.data.partnername);
     setPhone(response.data.phone);

@@ -52,7 +52,7 @@ const EditMember = () => {
 
     const getMemberById = async (fmid) => {
         const response = await axios.get(`http://localhost:3001/farmmember/${fmid}`);
-        console.log(response);
+        // console.log(response);
         setMemberID(response.data.memberID);
         setMembername(response.data.membername);
         setIdcard(response.data.idcard);

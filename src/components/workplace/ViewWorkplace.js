@@ -56,7 +56,7 @@ const ViewWorkplace = (props) => {
 
                     <div className="col columnview">
                         <label className="form-label col-md-12">Username</label>
-                        <input type="text" className="form-control" value={workdata.username} disabled />
+                        <input type="text" className="form-control" value={workdata.Personnel['name']} disabled />
                     </div>
 
                     <div className="col columnview">

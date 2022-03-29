@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import pic7 from '../img/pic7.jpg'
-import pic4 from '../img/pic4.jpg'
+import pic12 from '../img/pic12.jpg'
 
 function Login() {
 
@@ -29,16 +28,9 @@ function Login() {
     }
 
     return (
-        <div className="card-bg" style={{ backgroundImage: `url(${pic7})` }}>
+        <div className="card-bg" style={{ backgroundImage: `url(${pic12})` }}>
             <div className="card-group">
-                <div className="card">
-                    <div className="pic-left">
-                        <img src={pic4} alt="pic4" />
-                    </div>
-                </div>
-
-                <div className="card">
-                    {/* <div className="card-container"> */}
+                <div className="card c1">
 
                     <form onSubmit={Auth}>
                         <p className="has-text-centered">{msg}</p>
@@ -66,7 +58,6 @@ function Login() {
 
                         </div>
                     </form>
-                    {/* </div> */}
                 </div>
             </div>
         </div>

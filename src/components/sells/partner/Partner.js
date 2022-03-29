@@ -7,6 +7,7 @@ import SearchPartner from './SearchPartner';
 import "./Partner.css";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const Partner = () => {
     const [partnerList, setPartnerList] = useState([]);
@@ -47,7 +48,7 @@ const Partner = () => {
     }
 
     const deleteMember = async (pid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/partner/${pid}`);
             getPartner();

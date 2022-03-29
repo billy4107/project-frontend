@@ -7,6 +7,7 @@ import ReactPaginate from 'react-paginate'
 import SearchProduct from './SearchProduct'
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {confirm} from 'react-bootstrap-confirmation';
 
 const ManageProduct = () => {
 
@@ -44,7 +45,7 @@ const ManageProduct = () => {
     }
 
     const deleteProduct = async (pfid) => {
-        const answer = window.confirm("are you sure?");
+        const answer = await confirm("are you sure?");
         if (answer) {
             await axios.delete(`http://localhost:3001/productfresh/${pfid}`);
             getProduct();
